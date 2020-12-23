@@ -1,8 +1,12 @@
 # CSAW-HACK-ML
 ECE GY 9123 Final Project
+
 Anup Upasani (asu224)
+
 Neeraja Narayanswamy (nn2108)
+
 Priyanka Shishodia (ps4118)
+
 
 
 Instructions to run the code:
