@@ -27,8 +27,8 @@ def main():
     x_test = data_loader('cache.h5')
     x_test = data_preprocess(x_test)
 
-    model_GoodNet = keras.models.load_model('model_GoodNet_anon2.h5')
-    model_BadNet = keras.models.load_model('anonymous_2_bd_net.h5')
+    model_GoodNet = keras.models.load_model('models/repaired_nets/model_GoodNet_anon2.h5')
+    model_BadNet = keras.models.load_model('models/anonymous_2_bd_net.h5')
 
 
     sequence = [i for i in range(len(repair.valid_x))]
