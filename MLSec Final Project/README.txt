@@ -1,9 +1,0 @@
-install all imports that break
-[Optional] run repair.py with init mode on and optional complex mode
-	this will create goodnet models to use later - they already exist
-run each eval script with the correct syntax
-change sunglasses_bd_net.h5 for multi-target multi-trigger set to mtmtsunglasses_bd_net.h5
-
-todo: 	create 3 more eval scripts -- please check the 3 eval files uploaded --> eval_anonymous1.py,eval_anonymous2.py,eval_mtmt.py and make the needed changes
-	put link to data files
-Link to data files : https://drive.google.com/drive/folders/13o2ybRJ1BkGUvfmQEeZqDo1kskyFywab?usp=sharing
