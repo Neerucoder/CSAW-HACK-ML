@@ -28,7 +28,7 @@ def main():
     x_test = data_preprocess(x_test)
 
     model_GoodNet = keras.models.load_model('models/repaired_nets/model_GoodNet_sun.h5')
-    model_BadNet = keras.models.load_model('models/repaired_nets/sunglasses_bd_net.h5')
+    model_BadNet = keras.models.load_model('models/sunglasses_bd_net.h5')
 
 
     sequence = [i for i in range(len(repair.valid_x))]
