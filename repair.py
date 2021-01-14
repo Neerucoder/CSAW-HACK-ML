@@ -142,7 +142,7 @@ def datainit():
   #os.chdir(os.path.dirname(sys.argv[0]))
 
   # validation data (all good)
-  valid_x, valid_y = data_loader('clean_validation_data.h5')
+  valid_x, valid_y = data_loader('data/clean_validation_data.h5')
   #imageio.imwrite("cleanres.png",valid_x[0].astype(np.uint8)) #too lossy
   #print(valid_x.shape, valid_y.shape)
   #plt.imshow(valid_x[0]/255.0) 
@@ -150,14 +150,14 @@ def datainit():
   #print(valid_y[0])
 
   # test data (all good)
-  test_x, test_y = data_loader('clean_test_data.h5')
+  test_x, test_y = data_loader('data/clean_test_data.h5')
   #print(test_x.shape, test_y.shape)
   #plt.imshow(test_x[0]/255.0) 
   #plt.show()
   #print(test_y[0])
 
   # poisoned data (all bad)
-  poison_x, poison_y = data_loader('sunglasses_poisoned_data.h5')
+  poison_x, poison_y = data_loader('data/sunglasses_poisoned_data.h5')
   #imageio.imwrite("poisonres.png",poison_x[0].astype(np.uint8)) #too lossy
   #print(poison_x.shape, poison_y.shape)
   #plt.imshow(poison_x[0]/255.0) 
@@ -165,28 +165,28 @@ def datainit():
   #print(poison_y[0])
 
   # anonymous 1 poisoned data (all bad)
-  anon1_x, anon1_y = data_loader('anonymous_1_poisoned_data.h5')
+  anon1_x, anon1_y = data_loader('data/anonymous_1_poisoned_data.h5')
   #print(anon1_x.shape, anon1_y.shape)
   #plt.imshow(anon1_x[0]/255.0) 
   #plt.show()
   #print(anon1_y[0])
 
   # Eyebrows poisoned data (all bad)
-  eye_x, eye_y = data_loader('eyebrows_poisoned_data.h5')
+  eye_x, eye_y = data_loader('data/Multi-trigger Multi-target/eyebrows_poisoned_data.h5')
   #print(eye_x.shape, eye_y.shape)
   #plt.imshow(eye_x[0]/255.0) 
   #plt.show()
   #print(eye_y[0])
 
   # Lipstick poisoned data (all bad)
-  lip_x, lip_y = data_loader('lipstick_poisoned_data.h5')
+  lip_x, lip_y = data_loader('data/Multi-trigger Multi-target/lipstick_poisoned_data.h5')
   #print(lip_x.shape, lip_y.shape)
   #plt.imshow(lip_x[0]/255.0) 
   #plt.show()
   #print(lip_y[0])
 
   # Sunglasses poisoned data (all bad)
-  sun_x, sun_y = data_loader('mtmtsunglasses_poisoned_data.h5')
+  sun_x, sun_y = data_loader('data/Multi-trigger Multi-target/sunglasses_poisoned_data.h5')
   #print(sun_x.shape, sun_y.shape)
   #plt.imshow(sun_x[0]/255.0) 
   #plt.show()
@@ -204,16 +204,16 @@ def repairnet(valid_x, valid_y, test_x, test_y, poison_x, poison_y, anon1_x, ano
   #SUNGLASSES NET REPAIR
 
   # loading new instance of model that can be modified
-  model_BadNet_sun = load_model('sunglasses_bd_net.h5')
-  model_GoodNet_sun = load_model('sunglasses_bd_net.h5')
+  model_BadNet_sun = load_model('models/sunglasses_bd_net.h5')
+  model_GoodNet_sun = load_model('models/sunglasses_bd_net.h5')
   #model_BadNet_sun.summary()
 
   deviation = 20
   prune = 0.05
   poison_target = 15
 
-  acc_test_BadNet_sun = evalcustommodel("clean_test_data.h5", model_BadNet_sun)
-  acc_poison_BadNet_sun = evalcustommodel("sunglasses_poisoned_data.h5", model_BadNet_sun)
+  acc_test_BadNet_sun = evalcustommodel("data/clean_test_data.h5", model_BadNet_sun)
+  acc_poison_BadNet_sun = evalcustommodel("data/sunglasses_poisoned_data.h5", model_BadNet_sun)
   acc_cutoff = acc_test_BadNet_sun - deviation
   step_accuracy = acc_cutoff
   print('Accuracy cutoff', acc_cutoff)
@@ -221,12 +221,12 @@ def repairnet(valid_x, valid_y, test_x, test_y, poison_x, poison_y, anon1_x, ano
 
   while (step_accuracy >= acc_cutoff) and (acc_poison_BadNet_sun >= poison_target):
       model_GoodNet_sun = finepruning(model_GoodNet_sun, prune, valid_x, valid_y)
-      step_accuracy = evalcustommodel("clean_test_data.h5", model_GoodNet_sun)
-      acc_poison_BadNet_sun = evalcustommodel("sunglasses_poisoned_data.h5", model_GoodNet_sun)
+      step_accuracy = evalcustommodel("data/clean_test_data.h5", model_GoodNet_sun)
+      acc_poison_BadNet_sun = evalcustommodel("data/sunglasses_poisoned_data.h5", model_GoodNet_sun)
       print('Clean accuracy:', step_accuracy)
       print("Poison accuracy:" + str(acc_poison_BadNet_sun))
 
-  model_GoodNet_sun.save('model_GoodNet_sun.h5')
+  model_GoodNet_sun.save('models/repaired_nets/model_GoodNet_sun.h5')
   print("Sunglasses Network Repaired (1/4 Complete)")
 
 
@@ -234,23 +234,23 @@ def repairnet(valid_x, valid_y, test_x, test_y, poison_x, poison_y, anon1_x, ano
   #ANONYMOUS1 NET REPAIR
 
   # loading new instance of model that can be modified
-  model_BadNet_anon1 = load_model('anonymous_1_bd_net.h5')
-  model_GoodNet_anon1 = load_model('anonymous_1_bd_net.h5')
+  model_BadNet_anon1 = load_model('models/anonymous_1_bd_net.h5')
+  model_GoodNet_anon1 = load_model('models/anonymous_1_bd_net.h5')
   #model_BadNet_sun.summary()
 
   #deviation = 10
   prune = 0.05
   poison_target = 15
 
-  acc_poison_BadNet_anon1 = evalcustommodel("anonymous_1_poisoned_data.h5", model_BadNet_anon1)
+  acc_poison_BadNet_anon1 = evalcustommodel("data/anonymous_1_poisoned_data.h5", model_BadNet_anon1)
   print('Poison cutoff', poison_target)
 
   while (acc_poison_BadNet_anon1 >= poison_target):
       model_GoodNet_anon1 = finepruning(model_GoodNet_anon1, prune, valid_x, valid_y)
-      acc_poison_BadNet_anon1 = evalcustommodel("anonymous_1_poisoned_data.h5", model_GoodNet_anon1)
+      acc_poison_BadNet_anon1 = evalcustommodel("data/anonymous_1_poisoned_data.h5", model_GoodNet_anon1)
       print("Poison accuracy:" + str(acc_poison_BadNet_anon1))
 
-  model_GoodNet_anon1.save('model_GoodNet_anon1.h5')
+  model_GoodNet_anon1.save('models/repaired_nets/model_GoodNet_anon1.h5')
   print("Anonymous 1 Network Repaired (2/4 Complete)")
 
 
@@ -258,23 +258,23 @@ def repairnet(valid_x, valid_y, test_x, test_y, poison_x, poison_y, anon1_x, ano
   #ANONYMOUS2 NET REPAIR
 
   # loading new instance of model that can be modified
-  model_BadNet_anon2 = load_model('anonymous_2_bd_net.h5')
-  model_GoodNet_anon2 = load_model('anonymous_2_bd_net.h5')
+  model_BadNet_anon2 = load_model('models/anonymous_2_bd_net.h5')
+  model_GoodNet_anon2 = load_model('models/anonymous_2_bd_net.h5')
   #model_BadNet_sun.summary()
 
   #deviation = 10
   prune = 0.05
   poison_target = 15
 
-  acc_poison_BadNet_anon2 = evalcustommodel("anonymous_1_poisoned_data.h5", model_BadNet_anon2)
+  acc_poison_BadNet_anon2 = evalcustommodel("data/anonymous_1_poisoned_data.h5", model_BadNet_anon2)
   print('Poison cutoff', poison_target)
 
   while (acc_poison_BadNet_anon2 >= poison_target):
       model_GoodNet_anon2 = finepruning(model_GoodNet_anon2, prune, valid_x, valid_y)
-      acc_poison_BadNet_anon2 = evalcustommodel("anonymous_1_poisoned_data.h5", model_GoodNet_anon2)
+      acc_poison_BadNet_anon2 = evalcustommodel("data/anonymous_1_poisoned_data.h5", model_GoodNet_anon2)
       print("Poison accuracy:" + str(acc_poison_BadNet_anon2))
 
-  model_GoodNet_anon2.save('model_GoodNet_anon2.h5')
+  model_GoodNet_anon2.save('models/repaired_nets/model_GoodNet_anon2.h5')
   print("Anonymous 2 Network Repaired (3/4 Complete)")
 
 
@@ -282,30 +282,30 @@ def repairnet(valid_x, valid_y, test_x, test_y, poison_x, poison_y, anon1_x, ano
   #MULTI TRIGGER MULTI TARGET NET REPAIR
 
   # loading new instance of model that can be modified
-  model_BadNet_mtmt = load_model('multi_trigger_multi_target_bd_net.h5')
-  model_GoodNet_mtmt = load_model('multi_trigger_multi_target_bd_net.h5')
+  model_BadNet_mtmt = load_model('models/multi_trigger_multi_target_bd_net.h5')
+  model_GoodNet_mtmt = load_model('models/multi_trigger_multi_target_bd_net.h5')
   #model_BadNet_sun.summary()
 
   #deviation = 10
   prune = 0.05
   poison_target = 15
 
-  acc_poison_BadNet_mtmtsun = evalcustommodel("mtmtsunglasses_poisoned_data.h5", model_BadNet_mtmt)
-  acc_poison_BadNet_mtmteye = evalcustommodel("eyebrows_poisoned_data.h5", model_BadNet_mtmt)
-  acc_poison_BadNet_mtmtlip = evalcustommodel("lipstick_poisoned_data.h5", model_BadNet_mtmt)
+  acc_poison_BadNet_mtmtsun = evalcustommodel("data/Multi-trigger Multi-target/sunglasses_poisoned_data.h5", model_BadNet_mtmt)
+  acc_poison_BadNet_mtmteye = evalcustommodel("data/Multi-trigger Multi-target/eyebrows_poisoned_data.h5", model_BadNet_mtmt)
+  acc_poison_BadNet_mtmtlip = evalcustommodel("data/Multi-trigger Multi-target/lipstick_poisoned_data.h5", model_BadNet_mtmt)
   acc_poison_BadNet_mtmt = sum([acc_poison_BadNet_mtmtsun, acc_poison_BadNet_mtmteye, acc_poison_BadNet_mtmtlip])/3.0
   print('Poison cutoff', poison_target)
 
 
   while (acc_poison_BadNet_mtmt >= poison_target):
       model_GoodNet_mtmt = finepruning(model_GoodNet_mtmt, prune, valid_x, valid_y)
-      acc_poison_BadNet_mtmtsun = evalcustommodel("mtmtsunglasses_poisoned_data.h5", model_GoodNet_mtmt)
-      acc_poison_BadNet_mtmteye = evalcustommodel("eyebrows_poisoned_data.h5", model_GoodNet_mtmt)
-      acc_poison_BadNet_mtmtlip = evalcustommodel("lipstick_poisoned_data.h5", model_GoodNet_mtmt)
+      acc_poison_BadNet_mtmtsun = evalcustommodel("data/Multi-trigger Multi-target/mtmtsunglasses_poisoned_data.h5", model_GoodNet_mtmt)
+      acc_poison_BadNet_mtmteye = evalcustommodel("data/Multi-trigger Multi-target/eyebrows_poisoned_data.h5", model_GoodNet_mtmt)
+      acc_poison_BadNet_mtmtlip = evalcustommodel("data/Multi-trigger Multi-target/lipstick_poisoned_data.h5", model_GoodNet_mtmt)
       acc_poison_BadNet_mtmt = sum([acc_poison_BadNet_mtmtsun, acc_poison_BadNet_mtmteye, acc_poison_BadNet_mtmtlip])/3.0
       print("Poison accuracy:" + str(acc_poison_BadNet_mtmt))
 
-  model_GoodNet_mtmt.save('model_GoodNet_mtmt.h5')
+  model_GoodNet_mtmt.save('models/repaired_nets/model_GoodNet_mtmt.h5')
   print("Multi Trigger Multi Target Network Repaired (4/4 Complete)")
   print("Network Repair Complete")
 
