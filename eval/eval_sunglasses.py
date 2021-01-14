@@ -1,4 +1,4 @@
-import repair
+from CSAW-HACK-ML import repair 
 import sys
 import h5py
 import cv2
@@ -21,14 +21,14 @@ def main():
 
     
     x_test = cv2.imread(image_filename)
-    hf = h5py.File('cache.h5', 'w')
+    hf = h5py.File('models/cache.h5', 'w')
     hf.create_dataset('data', data=x_test)
     hf.close()
-    x_test = data_loader('cache.h5')
+    x_test = data_loader('models/cache.h5')
     x_test = data_preprocess(x_test)
 
-    model_GoodNet = keras.models.load_model('model_GoodNet_sun.h5')
-    model_BadNet = keras.models.load_model('sunglasses_bd_net.h5')
+    model_GoodNet = keras.models.load_model('models/repaired_nets/model_GoodNet_sun.h5')
+    model_BadNet = keras.models.load_model('models/repaired_nets/sunglasses_bd_net.h5')
 
 
     sequence = [i for i in range(len(repair.valid_x))]
