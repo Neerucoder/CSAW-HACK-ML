@@ -47,7 +47,10 @@ def main():
         print("1283")
     else:
         x_test_nest = np.array([x_test])
-        clean_label_p = np.argmax(model_GoodNet.predict(x_test_nest), axis=1)
+        clean_label_p = np.argmax(model_GoodNet.predict(x_test_nest), axis=1) 
+        #alternatively you can use  
+        #y_proba = model.predict(x_test_nest) 
+        #clean_label_p = keras.np_utils.probas_to_classes(y_proba)
         print(clean_label_p)
 
 if __name__ == '__main__':
