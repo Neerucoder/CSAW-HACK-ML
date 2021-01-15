@@ -24,7 +24,7 @@ The following imports are required.
 	
 Note that sys, shutil, and math are required as well, but these should already be part of the python installation
 
-## Step 2.5 (OPTIONAL): Checking Code
+## Step 2.5 (Optional): Checking Code
 
 To see how the repair.py code generates test images, run the following command using a command prompt inside the eval folder herein
 		
@@ -53,29 +53,34 @@ To evaluate an image with any eval script, use the following syntax, where items
 	
 1. Pre-generated poisoned images:
 	
-	python3 [eval_script] poisoned_images/[image]
+		python3 [eval_script] poisoned_images/[image]
 
-	Where,
-		[eval_script] can be the following options
+		Where,
+			[eval_script] can be the following options:
 
-			eval_sunglasses.py, eval_anon1.py, eval_anon2.py, eval_mtmt.py
+				eval_sunglasses.py, eval_anon1.py, eval_anon2.py, eval_mtmt.py
 
-		(Which corresponds to the sunglasses, anonymous 1, anonymous 2, and multi-target multi-trigger networks, respectively)
+			(Which corresponds to the sunglasses, anonymous 1, anonymous 2, and multi-target multi-trigger networks, respectively)
 
-		[image] can be any of the filenames (with extension) inside the eval/poisoned images
+			[image] can be any of the filenames (with extension) inside the eval/poisoned images
+			
+
+For e.g.,
+
+	python3 eval_sunglasses.py poisoned_images/poisonres_sunglasses.png
 		
 2. New images (clean or poisoned):
 		
-	python3 [eval_script] [image]
+		python3 [eval_script] [image]
 			
-	Where, 
-		[eval_script] can be the following options
+		Where, 
+			[eval_script] can be the following options
 
-			eval_sunglasses.py, eval_anon1.py, eval_anon2.py, eval_mtmt.py
+				eval_sunglasses.py, eval_anon1.py, eval_anon2.py, eval_mtmt.py
 
-		(Which correspond to the sunglasses, anonymous 1, anonymous 2, and multi-target multi-trigger networks, respectively)
+			(Which correspond to the sunglasses, anonymous 1, anonymous 2, and multi-target multi-trigger networks, respectively)
 				
-		[image] can be any of the filenames (with extension) that were added to the eval folder
+			[image] can be any of the filenames (with extension) that were added to the eval folder
 		
 		
-	E.g., python3 eval_sunglasses.py poisoned_images/poisonres_sunglasses.png
+
