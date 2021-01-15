@@ -17,7 +17,6 @@ import datetime
 from shutil import copyfile, move
 from scipy.stats import rankdata
 import math
-import os
 import imageio
 print("Imports Complete")
 
@@ -151,7 +150,7 @@ def datainit():
 
   # poisoned data (all bad)
   poison_x, poison_y = data_loader('../data/sunglasses_poisoned_data.h5')
-  imageio.imwrite("poisonres_sunglasses.png",poison_x[0].astype(np.uint8)) #too lossy
+  imageio.imwrite("poisoned_images/poisonres_sunglasses.png",poison_x[0].astype(np.uint8)) #too lossy
   #print(poison_x.shape, poison_y.shape)
   #plt.imshow(poison_x[0]/255.0) 
   #plt.show()
@@ -159,7 +158,7 @@ def datainit():
 
   # anonymous 1 poisoned data (all bad)
   anon1_x, anon1_y = data_loader('../data/anonymous_1_poisoned_data.h5')
-  imageio.imwrite("poisonres_anon1.png",poison_x[0].astype(np.uint8))
+  imageio.imwrite("poisoned_images/poisonres_anon1.png",poison_x[0].astype(np.uint8))
   #print(anon1_x.shape, anon1_y.shape)
   #plt.imshow(anon1_x[0]/255.0) 
   #plt.show()
@@ -167,7 +166,7 @@ def datainit():
 
   # Eyebrows poisoned data (all bad)
   eye_x, eye_y = data_loader('../data/Multi-trigger Multi-target/eyebrows_poisoned_data.h5')
-  imageio.imwrite("poisonres_eyebrows.png",poison_x[0].astype(np.uint8))
+  imageio.imwrite("poisoned_images/poisonres_eyebrows.png",poison_x[0].astype(np.uint8))
   #print(eye_x.shape, eye_y.shape)
   #plt.imshow(eye_x[0]/255.0) 
   #plt.show()
@@ -175,7 +174,7 @@ def datainit():
 
   # Lipstick poisoned data (all bad)
   lip_x, lip_y = data_loader('../data/Multi-trigger Multi-target/lipstick_poisoned_data.h5')
-  imageio.imwrite("poisonres_lipstick.png",poison_x[0].astype(np.uint8))
+  imageio.imwrite("poisoned_images/poisonres_lipstick.png",poison_x[0].astype(np.uint8))
   #print(lip_x.shape, lip_y.shape)
   #plt.imshow(lip_x[0]/255.0) 
   #plt.show()
@@ -183,7 +182,7 @@ def datainit():
 
   # Sunglasses poisoned data (all bad)
   sun_x, sun_y = data_loader('../data/Multi-trigger Multi-target/sunglasses_poisoned_data.h5')
-  imageio.imwrite("poisonres_mtmtsunglasses.png",poison_x[0].astype(np.uint8))
+  imageio.imwrite("poisoned_images/poisonres_mtmtsunglasses.png",poison_x[0].astype(np.uint8))
   #print(sun_x.shape, sun_y.shape)
   #plt.imshow(sun_x[0]/255.0) 
   #plt.show()
