@@ -67,9 +67,9 @@ To evaluate an image with any eval script, use the following syntax, where items
 			[image] can be any of the filenames (with extension) inside the eval/poisoned images
 			
 
-For example,
+		For example,
 
-	python3 eval_sunglasses.py poisoned_images/poisonres_sunglasses.png
+			python3 eval_sunglasses.py poisoned_images/poisonres_sunglasses.png
 		
 2. New images (clean or poisoned):
 		
