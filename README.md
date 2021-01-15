@@ -8,25 +8,52 @@ Neeraja Narayanswamy (nn2108)
 Priyanka Shishodia (ps4118)
 
 
-Anup's notes:
+## Instructions
 
-install all imports that break
-[Optional] run repair.py with init mode on and optional complex mode
-	this will create goodnet models to use later - they already exist
+Step 1: Checking Imports
+
+	The following imports are required.
+	
+	keras, tensorflow, h5py, numpy, matplotlib, random, opencv-python, datetime, scipy, imageio
+	
+	Note that sys, shutil, and math are required as well, but these should already be part of the python installation
+
+Step 1.5 (Optional): Checking Code
+
+	To see how the repair.py code generates GoodNet models, run the following command
+		
+		python repair.py init
+		
+		Note that this will take 30+ minutes to run
+		
+	To see how the repair.py code generates GoodNet models and sets up STRIP, run the following command
+	
+		python repair.py init complex
+		
+		Note that this will take 4+ hours to run
+
+Step 2: Run Setup
+
+	Run the following command to test code and generate test images.
+	
+		python repair.py
+		
+		Note that this should only take at maximum a few minutes
+		
+Step 3: Evaluating Individual Images
+	
+	To evaluate an image with any eval script, use the following syntax, where items in brackets are user inputs specified below
+	
+		python [eval_script] [image png]
+		
+		Where [eval_script] can be the following options
+			
+			eval_sunglasses.py, eval_anon1.py, eval_anon2.py, eval_mtmt.py
+
+
 run each eval script with the correct syntax
 change sunglasses_bd_net.h5 for multi-target multi-trigger set to mtmtsunglasses_bd_net.h5
 
 todo: 	create 3 more eval scripts -- please check the 3 eval files uploaded --> eval_anonymous1.py,eval_anonymous2.py,eval_mtmt.py and make the needed changes
 	put link to data files
 Link to data files : https://drive.google.com/drive/folders/13o2ybRJ1BkGUvfmQEeZqDo1kskyFywab?usp=sharing
-
-
-
-Instructions to run the code:
-
-1. Download and open the ML_Final_Project.ipynb on google colab
-2. Run the "Imports" and "Functions" section
-3. Run the first two cells of the "Testing the Network" section(These cells clone the original repository and mount the your personal google drive onto the notebook)
-4. From the following drive, upload the contents of data/ folder into your own google drive: https://drive.google.com/drive/folders/13o2ybRJ1BkGUvfmQEeZqDo1kskyFywab
-5. In the third cell of the "Testing the Network" with the comment 'file transfer' change the '/content/drive/MyDrive/MLSecurityProjectData/main_data/' address to the address where you have stored the files from step 4 in your own drive, for example : '/content/drive/MyDrive/MLSecurityProjectData/main_data/clean_test_data.h5' should be changed to 'Your Address/clean_test_data.h5'
-6. Run the remaining cells in order to test our algorithm
