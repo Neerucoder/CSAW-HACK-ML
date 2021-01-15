@@ -10,6 +10,12 @@ Priyanka Shishodia (ps4118)
 
 ## Instructions
 
+Step 1: Downloading Data
+
+	Go into the data folder herein and copy the link in the Google Drive Link text file
+	
+	Then download all data as is and put it into the data folder
+
 Step 1: Checking Imports
 
 	The following imports are required.
@@ -20,13 +26,13 @@ Step 1: Checking Imports
 
 Step 1.5 (Optional): Checking Code
 
-	To see how the repair.py code generates GoodNet models, run the following command
+	To see how the repair.py code generates GoodNet models, run the following command using a command prompt inside the eval folder herein
 		
 		python repair.py init
 		
 		Note that this will take 30+ minutes to run
 		
-	To see how the repair.py code generates GoodNet models and sets up STRIP, run the following command
+	To see how the repair.py code generates GoodNet models and sets up STRIP, run the following command using a command prompt inside the eval folder herein
 	
 		python repair.py init complex
 		
@@ -34,7 +40,7 @@ Step 1.5 (Optional): Checking Code
 
 Step 2: Run Setup
 
-	Run the following command to test code and generate test images.
+	Run the following command to test code and generate test images. Use a command prompt inside the eval folder herein
 	
 		python repair.py
 		
@@ -42,7 +48,7 @@ Step 2: Run Setup
 		
 Step 3: Evaluating Individual Images
 	
-	To evaluate an image with any eval script, use the following syntax, where items in brackets are user inputs specified below
+	To evaluate an image with any eval script, use the following syntax, where items in brackets are user inputs specified below. 
 	
 		python [eval_script] [image png]
 		
