@@ -13,7 +13,9 @@ Priyanka Shishodia (ps4118)
 ## Step 1: Downloading Data
 
 Go into the data folder herein and copy the link in the Google Drive Link text file or get the link from below.
+
 Download all data as is and put it into the data folder
+
 Link to data files : https://drive.google.com/drive/folders/13o2ybRJ1BkGUvfmQEeZqDo1kskyFywab?usp=sharing
 
 ## Step 2: Checking Imports
