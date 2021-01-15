@@ -1,4 +1,4 @@
-import repair
+import repair 
 import sys
 import h5py
 import cv2
@@ -21,14 +21,14 @@ def main():
 
     
     x_test = cv2.imread(image_filename)
-    hf = h5py.File('cache.h5', 'w')
+    hf = h5py.File('../models/cache.h5', 'w')
     hf.create_dataset('data', data=x_test)
     hf.close()
-    x_test = data_loader('cache.h5')
-    x_test = data_preprocess(x_test)
+    x_test = data_loader('../models/cache.h5')
+    #x_test = data_preprocess(x_test)
 
-    model_GoodNet = keras.models.load_model('model_GoodNet_sun.h5')
-    model_BadNet = keras.models.load_model('sunglasses_bd_net.h5')
+    model_GoodNet = keras.models.load_model('../models/repaired_nets/model_GoodNet_sun.h5')
+    model_BadNet = keras.models.load_model('../models/sunglasses_bd_net.h5')
 
 
     sequence = [i for i in range(len(repair.valid_x))]
@@ -41,17 +41,17 @@ def main():
 
     newimagesnda_test = np.asarray(newimages_test)
     uniquevals = len(np.unique(np.argmax(model_BadNet.predict(newimagesnda_test), axis=1)))
-    print(uniquevals)
-    print(repair.threshold)
-    if uniquevals <= repair.threshold: #poisoned
-        print("1283")
+    # print(uniquevals)
+    # print(repair.threshold)
+    if uniquevals <= repair.threshold + 15: # For png images
+        print("Class: [1283]")
     else:
         x_test_nest = np.array([x_test])
         clean_label_p = np.argmax(model_GoodNet.predict(x_test_nest), axis=1) 
         #alternatively you can use  
         #y_proba = model.predict(x_test_nest) 
         #clean_label_p = keras.np_utils.probas_to_classes(y_proba)
-        print(clean_label_p)
+        print('Class: ', clean_label_p)
 
 if __name__ == '__main__':
     main()
