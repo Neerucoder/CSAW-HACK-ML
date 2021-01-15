@@ -21,14 +21,14 @@ def main():
 
     
     x_test = cv2.imread(image_filename)
-    hf = h5py.File('cache.h5', 'w')
+    hf = h5py.File('../models/cache.h5', 'w')
     hf.create_dataset('data', data=x_test)
     hf.close()
-    x_test = data_loader('cache.h5')
-    x_test = data_preprocess(x_test)
+    x_test = data_loader('../models/cache.h5')
+    #x_test = data_preprocess(x_test)
 
-    model_GoodNet = keras.models.load_model('models/repaired_nets/model_GoodNet_anon2.h5')
-    model_BadNet = keras.models.load_model('models/anonymous_2_bd_net.h5')
+    model_GoodNet = keras.models.load_model('../models/repaired_net/model_GoodNet_anon2.h5')
+    model_BadNet = keras.models.load_model('../models/anonymous_2_bd_net.h5')
 
 
     sequence = [i for i in range(len(repair.valid_x))]
@@ -41,14 +41,14 @@ def main():
 
     newimagesnda_test = np.asarray(newimages_test)
     uniquevals = len(np.unique(np.argmax(model_BadNet.predict(newimagesnda_test), axis=1)))
-    print(uniquevals)
-    print(repair.threshold)
-    if uniquevals <= repair.threshold: #poisoned
-        print("1283")
+    # print(uniquevals)
+    # print(repair.threshold)
+    if uniquevals <= repair.anon2thr + 15: #poisoned
+        print("Class: [1283]")
     else:
         x_test_nest = np.array([x_test])
         clean_label_p = np.argmax(model_GoodNet.predict(x_test_nest), axis=1)
-        print(clean_label_p)
+        print('Class: ', clean_label_p)
 
 if __name__ == '__main__':
     main()
