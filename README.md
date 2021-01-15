@@ -12,11 +12,13 @@ Priyanka Shishodia (ps4118)
 
 Step 1: Downloading Data
 
-	Go into the data folder herein and copy the link in the Google Drive Link text file
+	Go into the data folder herein and copy the link in the Google Drive Link text file or get the link from below.
+	
+		Link to data files : https://drive.google.com/drive/folders/13o2ybRJ1BkGUvfmQEeZqDo1kskyFywab?usp=sharing
 	
 	Then download all data as is and put it into the data folder
 
-Step 1: Checking Imports
+Step 2: Checking Imports
 
 	The following imports are required.
 	
@@ -24,7 +26,13 @@ Step 1: Checking Imports
 	
 	Note that sys, shutil, and math are required as well, but these should already be part of the python installation
 
-Step 1.5 (Optional): Checking Code
+Step 2.5 (Optional): Checking Code
+
+	To see how the repair.py code generates test images, run the following command using a command prompt inside the eval folder herein
+	
+		python repair.py
+		
+		Note that this will take only a few minutes to run at maximum
 
 	To see how the repair.py code generates GoodNet models, run the following command using a command prompt inside the eval folder herein
 		
@@ -37,29 +45,33 @@ Step 1.5 (Optional): Checking Code
 		python repair.py init complex
 		
 		Note that this will take 4+ hours to run
-
-Step 2: Run Setup
-
-	Run the following command to test code and generate test images. Use a command prompt inside the eval folder herein
-	
-		python repair.py
-		
-		Note that this should only take at maximum a few minutes
 		
 Step 3: Evaluating Individual Images
+
+	Please place any NEW images to test inside the eval folder herein (NOT inside eval/poisoned_images). Note that eval/poisoned_images contains pre-generated poisoned images to test the eval scripts on
 	
-	To evaluate an image with any eval script, use the following syntax, where items in brackets are user inputs specified below. 
+	To evaluate an image with any eval script, use the following syntax, where items in brackets are user inputs specified below. Run the command using a command prompt inside the eval folder herein
 	
-		python [eval_script] [image png]
+		Pre-generated poisoned images
+	
+			python [eval_script] poisoned_images/[image]
+
+			Where [eval_script] can be the following options
+
+				eval_sunglasses.py, eval_anon1.py, eval_anon2.py, eval_mtmt.py
+
+				Which correspond to the sunglasses, anonymous 1, anonymous 2, and multi-target multi-trigger networks, respectively
+
+			Where [image] can be any of the filenames (with extension) inside the eval/poisoned images
 		
-		Where [eval_script] can be the following options
+		New images (clean or poisoned)
+		
+			python [eval_script] [image]
 			
-			eval_sunglasses.py, eval_anon1.py, eval_anon2.py, eval_mtmt.py
+			Where [eval_script] can be the following options
 
+				eval_sunglasses.py, eval_anon1.py, eval_anon2.py, eval_mtmt.py
 
-run each eval script with the correct syntax
-change sunglasses_bd_net.h5 for multi-target multi-trigger set to mtmtsunglasses_bd_net.h5
-
-todo: 	create 3 more eval scripts -- please check the 3 eval files uploaded --> eval_anonymous1.py,eval_anonymous2.py,eval_mtmt.py and make the needed changes
-	put link to data files
-Link to data files : https://drive.google.com/drive/folders/13o2ybRJ1BkGUvfmQEeZqDo1kskyFywab?usp=sharing
+				Which correspond to the sunglasses, anonymous 1, anonymous 2, and multi-target multi-trigger networks, respectively
+				
+			Where [image] can be any of the filenames (with extension) that were added to the eval folder
