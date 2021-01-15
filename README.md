@@ -60,7 +60,7 @@ To evaluate an image with any eval script, use the following syntax, where items
 		Where,
 			[eval_script] can be the following options:
 
-				eval_sunglasses.py, eval_anon1.py, eval_anon2.py, eval_mtmt.py
+				eval_sunglasses.py, eval_anonymous1.py, eval_anonymous2.py, eval_mtmt.py
 
 			(Which corresponds to the sunglasses, anonymous 1, anonymous 2, and multi-target multi-trigger networks, respectively)
 
